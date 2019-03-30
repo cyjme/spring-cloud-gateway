@@ -29,6 +29,8 @@ import org.springframework.core.annotation.AnnotationAwareOrderComparator;
 
 /**
  * @author Spencer Gibb
+ * 缓存路由的 RouteLocator 实现类。RoutePredicateHandlerMapping
+ * 调用 CachingRouteLocator 的 RouteLocator#getRoutes() 方法，获取路由。
  */
 public class CachingRouteLocator
 		implements RouteLocator, ApplicationListener<RefreshRoutesEvent> {
@@ -39,6 +41,7 @@ public class CachingRouteLocator
 
 	private final Map<String, List> cache = new HashMap<>();
 
+//	构造方法，调用 #collectRoutes() 方法获得路由，并缓存到 cachedRoutes 属性。
 	public CachingRouteLocator(RouteLocator delegate) {
 		this.delegate = delegate;
 		routes = CacheFlux.lookup(cache, "routes", Route.class)

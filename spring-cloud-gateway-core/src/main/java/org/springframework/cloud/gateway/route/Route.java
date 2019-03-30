@@ -37,6 +37,7 @@ import static org.springframework.cloud.gateway.support.ServerWebExchangeUtils.t
 
 /**
  * @author Spencer Gibb
+ * 路由
  */
 public class Route implements Ordered {
 
@@ -46,13 +47,28 @@ public class Route implements Ordered {
 
 	private final int order;
 
+	/**
+	 * ServerWebExchange寓意交换/兑换(exchange):用请求换回响应.
+	 * 所以ServerWebExchange包含有成对的http请求对象ServerHttpRequest和http响应对象ServerHttpResponse.
+	 *
+	 *
+	 * predicate, routeDefinition 中定义的却是 predicates?
+	 * 在 RouteDefinitionRouteLocator 中的convertToRoute()， 将 RouteDefinition -> Route
+	 * 其中，使用 combinePredicates() 将 predicates 合并成一个 predicate。
+	 * predicate 本身应该就是一个可以合并多个条件的 条件。
+	 *
+	 *
+	 * http://code-craft.tech/article/spring-cloud-gateway-route-locator
+	 * 这里利用工厂方法，根据config去apply出来Predicate 而combinePredicates主要是对找出来的predicate进行and操作
+	 * https://www.cnblogs.com/kirinboy/archive/2011/03/03/where-concatenation.html
+	 */
 	private final AsyncPredicate<ServerWebExchange> predicate;
 
 	private final List<GatewayFilter> gatewayFilters;
 
 	private Route(String id, URI uri, int order,
-			AsyncPredicate<ServerWebExchange> predicate,
-			List<GatewayFilter> gatewayFilters) {
+				  AsyncPredicate<ServerWebExchange> predicate,
+				  List<GatewayFilter> gatewayFilters) {
 		this.id = id;
 		this.uri = uri;
 		this.order = order;

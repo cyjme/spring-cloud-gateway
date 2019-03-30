@@ -50,12 +50,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  * @author Spencer Gibb
+ * 提供管理网关的 HTTP API
  */
 @RestControllerEndpoint(id = "gateway")
 public class GatewayControllerEndpoint implements ApplicationEventPublisherAware {
 
 	private static final Log log = LogFactory.getLog(GatewayControllerEndpoint.class);
 
+	/*
+	* 存储器 RouteDefinitionLocator 对象
+	* */
 	private RouteDefinitionLocator routeDefinitionLocator;
 
 	private List<GlobalFilter> globalFilters;
@@ -78,6 +82,7 @@ public class GatewayControllerEndpoint implements ApplicationEventPublisherAware
 		this.routeLocator = routeLocator;
 	}
 
+//	HTTP API 调用了 ApplicationEventPublisher ，发布 RefreshRoutesEvent 事件
 	@Override
 	public void setApplicationEventPublisher(ApplicationEventPublisher publisher) {
 		this.publisher = publisher;
@@ -85,6 +90,8 @@ public class GatewayControllerEndpoint implements ApplicationEventPublisherAware
 
 	// TODO: Add uncommited or new but not active routes endpoint
 
+// 应用事件发布器
+//发布 RefreshRoutesEvent 事件。CachingRouteLocator 监听到该事件，刷新缓存。
 	@PostMapping("/refresh")
 	public Mono<Void> refresh() {
 		this.publisher.publishEvent(new RefreshRoutesEvent(this));

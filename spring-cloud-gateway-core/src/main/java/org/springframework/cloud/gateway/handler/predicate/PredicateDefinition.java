@@ -42,6 +42,12 @@ public class PredicateDefinition {
 	public PredicateDefinition() {
 	}
 
+	/**
+	 * 根据 text 创建 PredicateDefinition
+	 *
+	 * @param text 格式 ${name}=${args[0]},${args[1]}...${args[n]}
+	 *             例如 Host=iocoder.cn
+	 */
 	public PredicateDefinition(String text) {
 		int eqIdx = text.indexOf('=');
 		if (eqIdx <= 0) {

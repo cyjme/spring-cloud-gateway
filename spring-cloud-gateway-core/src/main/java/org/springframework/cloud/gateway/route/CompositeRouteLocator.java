@@ -20,6 +20,7 @@ import reactor.core.publisher.Flux;
 
 /**
  * @author Spencer Gibb
+ * 组合多种 RouteLocator 的实现类，为 RoutePredicateHandlerMapping 提供统一入口访问路由。
  */
 public class CompositeRouteLocator implements RouteLocator {
 

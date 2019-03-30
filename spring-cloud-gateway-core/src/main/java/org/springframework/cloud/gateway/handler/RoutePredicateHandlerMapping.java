@@ -37,6 +37,7 @@ import static org.springframework.cloud.gateway.support.ServerWebExchangeUtils.G
 
 /**
  * @author Spencer Gibb
+ * RoutePredicateHandlerMapping 使用 RouteLocator 获得 Route 信息。
  */
 public class RoutePredicateHandlerMapping extends AbstractHandlerMapping {
 

@@ -42,16 +42,20 @@ import org.springframework.util.StringUtils;
  * TODO: change to RouteLocator? use java dsl
  *
  * @author Spencer Gibb
+ * DiscoveryClientRouteDefinitionLocator 通过调用 org.springframework.cloud.client.discovery.DiscoveryClient
+ * 获取注册在注册中心的服务列表，生成对应的 RouteDefinition 数组。
  */
 public class DiscoveryClientRouteDefinitionLocator implements RouteDefinitionLocator {
 
 	private static final Log log = LogFactory
 			.getLog(DiscoveryClientRouteDefinitionLocator.class);
 
+//	discoveryClient 属性，注册发现客户端，用于向注册中心发起请求。
 	private final DiscoveryClient discoveryClient;
 
 	private final DiscoveryLocatorProperties properties;
 
+//	routeIdPrefix 属性，路由配置编号前缀，以 DiscoveryClient 类名 + _ 。
 	private final String routeIdPrefix;
 
 	private final SimpleEvaluationContext evalCtxt;

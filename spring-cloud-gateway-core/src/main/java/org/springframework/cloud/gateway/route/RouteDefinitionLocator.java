@@ -20,6 +20,7 @@ import reactor.core.publisher.Flux;
 
 /**
  * @author Spencer Gibb
+ * 通过实现该接口获取路由定义
  */
 public interface RouteDefinitionLocator {
 

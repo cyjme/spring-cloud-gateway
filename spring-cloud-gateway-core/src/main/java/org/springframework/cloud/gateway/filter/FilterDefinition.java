@@ -41,6 +41,12 @@ public class FilterDefinition {
 	public FilterDefinition() {
 	}
 
+	/**
+	 * 根据 text 创建 FilterDefinition
+	 *
+	 * @param text 格式 ${name}=${args[0]},${args[1]}...${args[n]}
+	 *             例如 AddRequestParameter=foo, bar
+	 */
 	public FilterDefinition(String text) {
 		int eqIdx = text.indexOf('=');
 		if (eqIdx <= 0) {
